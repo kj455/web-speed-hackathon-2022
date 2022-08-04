@@ -148,36 +148,38 @@ export const Top = () => {
   const heroImageUrl = useHeroImage(todayRaces);
 
   return (
-    <Container>
-      {heroImageUrl !== null && <HeroImage url={heroImageUrl} />}
+    <div style={{ minHeight: '100vh' }}>
+      <Container>
+        <HeroImage url={heroImageUrl ?? 'https://www.ingeniovirtual.com/descubrezapatillas/tags/1486?p=5.6.3013296.4.17.38.placeholder+picture'} />
 
-      <Spacer mt={Space * 2} />
-      {userData && (
-        <Stack horizontal alignItems="center" justifyContent="space-between">
-          <div>
-            <p>ポイント残高: {userData.balance}pt</p>
-            <p>払戻金: {userData.payoff}Yeen</p>
-          </div>
+        <Spacer mt={Space * 2} />
+        {userData && (
+          <Stack horizontal alignItems="center" justifyContent="space-between">
+            <div>
+              <p>ポイント残高: {userData.balance}pt</p>
+              <p>払戻金: {userData.payoff}Yeen</p>
+            </div>
 
-          <ChargeButton onClick={handleClickChargeButton}>
-            チャージ
-          </ChargeButton>
-        </Stack>
-      )}
-
-      <Spacer mt={Space * 2} />
-      <section>
-        <Heading as="h1">本日のレース</Heading>
-        {todayRacesToShow.length > 0 && (
-          <RecentRaceList>
-            {todayRacesToShow.map((race) => (
-              <RecentRaceList.Item key={race.id} race={race} />
-            ))}
-          </RecentRaceList>
+            <ChargeButton onClick={handleClickChargeButton}>
+              チャージ
+            </ChargeButton>
+          </Stack>
         )}
-      </section>
 
-      <ChargeDialog ref={chargeDialogRef} onComplete={handleCompleteCharge} />
-    </Container>
+        <Spacer mt={Space * 2} />
+        <section>
+          <Heading as="h1">本日のレース</Heading>
+          {todayRacesToShow.length > 0 && (
+            <RecentRaceList>
+              {todayRacesToShow.map((race) => (
+                <RecentRaceList.Item key={race.id} race={race} />
+              ))}
+            </RecentRaceList>
+          )}
+        </section>
+
+        <ChargeDialog ref={chargeDialogRef} onComplete={handleCompleteCharge} />
+      </Container>
+    </div>
   );
 };

@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
-import React, { forwardRef, useCallback, useState } from "react";
-import zenginCode from "zengin-code";
+import React, { forwardRef, useCallback, useEffect, useState } from "react";
 
 import { Dialog } from "../../../../components/layouts/Dialog";
 import { Spacer } from "../../../../components/layouts/Spacer";
@@ -67,11 +66,23 @@ export const ChargeDialog = forwardRef(({ onComplete }, ref) => {
     [charge, bankCode, branchCode, accountNo, amount, onComplete, clearForm],
   );
 
-  const bankList = Object.entries(zenginCode).map(([code, { name }]) => ({
-    code,
-    name,
-  }));
-  const bank = zenginCode[bankCode];
+  const [bankList, setBankList] = useState([]);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(async () => {
+      const zengin = await import('zengin-code');
+      const list = Object.entries(zengin).map(([code, { name }]) => ({
+        code,
+        name,
+      }));
+      setBankList(list);
+    }, 3000);
+    return () => {
+      clearTimeout(timeoutId);
+    }
+  }, []);
+
+  const bank = bankList.find(b => b.code === bankCode) || null;
   const branch = bank?.branches[branchCode];
 
   return (
