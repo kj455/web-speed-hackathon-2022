@@ -1,4 +1,4 @@
-import moment from "moment";
+import dayjs from "dayjs";
 
 /**
  * @param {string} dateLeft
@@ -6,7 +6,7 @@ import moment from "moment";
  * @returns {boolean}
  */
 export const isSameDay = (dateLeft, dateRight) => {
-  return moment(dateLeft).isSame(moment(dateRight), "day");
+  return dayjs(dateLeft).isSame(dayjs(dateRight), "day");
 };
 
 /**
@@ -15,7 +15,7 @@ export const isSameDay = (dateLeft, dateRight) => {
  * @returns {string}
  */
 export const formatTime = (ts) => {
-  return moment(ts).format("H:mm");
+  return dayjs(ts).format("H:mm");
 };
 
 /**
@@ -24,13 +24,13 @@ export const formatTime = (ts) => {
  * @returns {string}
  */
 export const formatCloseAt = (closeAt, now = new Date()) => {
-  if (moment(closeAt).isBefore(now)) {
+  if (dayjs(closeAt).isBefore(now)) {
     return "投票締切";
   }
 
-  if (moment(closeAt).isAfter(moment(now).add(2, "hours"))) {
+  if (dayjs(closeAt).isAfter(dayjs(now).add(2, "hours"))) {
     return "投票受付中";
   }
 
-  return `締切${moment(closeAt).diff(now, "minutes")}分前`;
+  return `締切${dayjs(closeAt).diff(now, "minutes")}分前`;
 };
