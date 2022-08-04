@@ -97,8 +97,8 @@ const Item = ({ race }) => {
               height={100}
               loading="lazy"
               src={race.image}
-              width={100}
               style={{ objectFit: "cover" }}
+              width={100}
             />
             <RaceButton to={`/races/${race.id}/race-card`}>投票</RaceButton>
           </Stack>

@@ -150,12 +150,7 @@ export const Top = () => {
 
   return (
     <Container>
-      <HeroImage
-        url={
-          heroImageUrl ??
-          "https://www.ingeniovirtual.com/descubrezapatillas/tags/1486?p=5.6.3013296.4.17.38.placeholder+picture"
-        }
-      />
+      <HeroImage url={heroImageUrl ?? ""} />
 
       <Spacer mt={Space * 2} />
       {userData && (
