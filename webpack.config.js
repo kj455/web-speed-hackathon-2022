@@ -2,8 +2,10 @@
 const path = require("path");
 
 const CopyPlugin = require("copy-webpack-plugin");
+const webpack = require("webpack");
 const nodeExternals = require("webpack-node-externals");
-
+// const BundleAnalyzerPlugin =
+//   require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 function abs(...args) {
   return path.join(__dirname, ...args);
 }
@@ -56,6 +58,8 @@ module.exports = [
       new CopyPlugin({
         patterns: [{ from: PUBLIC_ROOT, to: DIST_PUBLIC }],
       }),
+      // new BundleAnalyzerPlugin(),
+      new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /ja/),
     ],
     resolve: {
       extensions: [".js", ".jsx"],
