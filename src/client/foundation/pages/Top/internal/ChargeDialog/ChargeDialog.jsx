@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import React, { forwardRef, useCallback, useEffect, useState } from "react";
+import React, { forwardRef, useCallback, useState } from "react";
 
 import { Dialog } from "../../../../components/layouts/Dialog";
 import { Spacer } from "../../../../components/layouts/Spacer";
@@ -7,6 +7,7 @@ import { Stack } from "../../../../components/layouts/Stack";
 import { Heading } from "../../../../components/typographies/Heading";
 import { useMutation } from "../../../../hooks/useMutation";
 import { Space } from "../../../../styles/variables";
+import { jsonFetcher } from "../../../../utils/HttpUtils";
 
 const CANCEL = "cancel";
 const CHARGE = "charge";
@@ -68,21 +69,19 @@ export const ChargeDialog = forwardRef(({ onComplete }, ref) => {
 
   const [bankList, setBankList] = useState([]);
 
-  useEffect(() => {
-    const timeoutId = setTimeout(async () => {
-      const zengin = await import('zengin-code');
-      const list = Object.entries(zengin).map(([code, { name }]) => ({
-        code,
-        name,
-      }));
-      setBankList(list);
-    }, 3000);
-    return () => {
-      clearTimeout(timeoutId);
+  const fetchZengin = useCallback(async () => {
+    if (bankList.length > 0) {
+      return;
     }
-  }, []);
+    const { zengin } = await jsonFetcher("/api/zengin");
+    const list = Object.entries(zengin).map(([code, { name }]) => ({
+      code,
+      name,
+    }));
+    setBankList(list);
+  }, [bankList.length]);
 
-  const bank = bankList.find(b => b.code === bankCode) || null;
+  const bank = bankList.find((b) => b.code === bankCode) || null;
   const branch = bank?.branches[branchCode];
 
   return (
@@ -93,7 +92,7 @@ export const ChargeDialog = forwardRef(({ onComplete }, ref) => {
         <Spacer mt={Space * 2} />
         <form method="dialog">
           <Stack gap={Space * 1}>
-            <label>
+            <label onClick={fetchZengin}>
               銀行コード
               <input
                 list="ChargeDialog-bank-list"

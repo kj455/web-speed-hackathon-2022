@@ -169,4 +169,11 @@ export const apiRoute = async (fastify) => {
     await initialize();
     res.status(204).send();
   });
+
+  fastify.get("/zengin", async (_req, res) => {
+    const zengin = await import("zengin-code");
+    res.send({
+      zengin,
+    });
+  });
 };
