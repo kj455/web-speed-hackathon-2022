@@ -17,6 +17,7 @@ export const RecentRaceList = ({ children }) => {
 };
 
 const ItemWrapper = styled.li`
+  height: "148px";
   background: ${Color.mono[0]};
   border-radius: ${Radius.MEDIUM};
   opacity: ${({ $opacity }) => $opacity};
@@ -81,7 +82,7 @@ const Item = ({ race }) => {
   }, [race.id, startAnimation, abortAnimation, resetAnimation]);
 
   return (
-    <ItemWrapper $opacity={opacity} height={148}>
+    <ItemWrapper $opacity={opacity}>
       <Stack horizontal alignItems="center" justifyContent="space-between">
         <Stack gap={Space * 1}>
           <RaceTitle>{race.name}</RaceTitle>
@@ -92,7 +93,13 @@ const Item = ({ race }) => {
 
         <Stack.Item grow={0} shrink={0}>
           <Stack horizontal alignItems="center" gap={Space * 2}>
-            <img height={100} loading='lazy' src={race.image} width={100} style={{objectFit: 'cover'}} />
+            <img
+              height={100}
+              loading="lazy"
+              src={race.image}
+              width={100}
+              style={{ objectFit: "cover" }}
+            />
             <RaceButton to={`/races/${race.id}/race-card`}>投票</RaceButton>
           </Stack>
         </Stack.Item>
@@ -101,3 +108,15 @@ const Item = ({ race }) => {
   );
 };
 RecentRaceList.Item = Item;
+
+const PlaceHolder = () => (
+  <ItemWrapper>
+    <div style={{ height: "100%" }}>
+      <br />
+      <br />
+      <br />
+      <br />
+    </div>
+  </ItemWrapper>
+);
+RecentRaceList.PlaceHolder = PlaceHolder;
