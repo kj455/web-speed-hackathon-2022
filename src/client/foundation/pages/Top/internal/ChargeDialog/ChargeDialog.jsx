@@ -135,11 +135,15 @@ export const ChargeDialog = forwardRef(({ onComplete }, ref) => {
                 ))}
             </datalist>
 
-            {branch && (
-              <motion.div animate={{ opacity: 1 }} initial={{ opacity: 0 }}>
-                支店名: {branch.name}
-              </motion.div>
-            )}
+            <div
+              style={{
+                height: branch != null ? "auto" : 0,
+                opacity: branch != null ? 1 : 0,
+                transition: "1s",
+              }}
+            >
+              支店名: {branch?.name ?? "..."}
+            </div>
 
             <label>
               口座番号

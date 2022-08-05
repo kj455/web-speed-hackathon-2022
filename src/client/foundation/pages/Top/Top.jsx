@@ -51,7 +51,7 @@ function useTodayRacesWithAnimation(races) {
       return;
     }
 
-    numberOfRacesToShow.current = 0;
+    numberOfRacesToShow.current = 6;
     if (timer.current !== null) {
       clearInterval(timer.current);
     }
@@ -145,8 +145,9 @@ export const Top = () => {
             isSameDay(race.startAt, date),
           )
       : [];
+
   const todayRacesToShow = useTodayRacesWithAnimation(todayRaces);
-  // const todayRacesToShow = [];
+
   const heroImageUrl = useHeroImage(todayRaces);
 
   return (
