@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import React, { forwardRef, useCallback, useState } from "react";
 
 import { Dialog } from "../../../../components/layouts/Dialog";
@@ -74,7 +73,8 @@ export const ChargeDialog = forwardRef(({ onComplete }, ref) => {
       return;
     }
     const { zengin } = await jsonFetcher("/api/zengin");
-    const list = Object.entries(zengin).map(([code, { name }]) => ({
+    const list = Object.entries(zengin).map(([code, { branches, name }]) => ({
+      branches,
       code,
       name,
     }));
@@ -82,7 +82,7 @@ export const ChargeDialog = forwardRef(({ onComplete }, ref) => {
   }, [bankList.length]);
 
   const bank = bankList.find((b) => b.code === bankCode) || null;
-  const branch = bank?.branches[branchCode];
+  const branch = bank?.branches?.[branchCode];
 
   return (
     <Dialog ref={ref} onClose={handleCloseDialog}>
@@ -107,11 +107,15 @@ export const ChargeDialog = forwardRef(({ onComplete }, ref) => {
               ))}
             </datalist>
 
-            {bank != null && (
-              <motion.div animate={{ opacity: 1 }} initial={{ opacity: 0 }}>
-                銀行名: {bank.name}銀行
-              </motion.div>
-            )}
+            <div
+              style={{
+                height: bank != null ? "auto" : 0,
+                opacity: bank != null ? 1 : 0,
+                transition: "1s",
+              }}
+            >
+              銀行名: {bank?.name ?? "..."}銀行
+            </div>
 
             <label>
               支店コード
