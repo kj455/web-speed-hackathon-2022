@@ -28,11 +28,12 @@ const PlayerName = styled.span`
 const Item = ({ image, name, number }) => {
   return (
     <Stack gap={Space * 1}>
-      <TrimmedImage
+      <img
         alt={`${name}選手のプロフィール写真`}
         height={100}
         src={image}
         width={100}
+        style={{ objectFit: "cover" }}
       />
 
       <Stack horizontal alignItems="center" gap={Space / 2} wrap="wrap">
@@ -43,6 +44,23 @@ const Item = ({ image, name, number }) => {
   );
 };
 
+const PlaceHolder = () => (
+  <Stack gap={Space * 1}>
+    <img
+      alt={`${name}選手のプロフィール写真`}
+      height={100}
+      src="/assets/images/loading.jpeg"
+      width={100}
+      style={{ objectFit: "cover" }}
+    />
+
+    <Stack horizontal alignItems="center" gap={Space / 2} wrap="wrap">
+      <PlayerNumber>?</PlayerNumber>
+      <PlayerName>???</PlayerName>
+    </Stack>
+  </Stack>
+);
+
 export const PlayerPictureList = ({ children }) => {
   return (
     <Stack horizontal gap={Space * 2} wrap="wrap">
@@ -51,3 +69,4 @@ export const PlayerPictureList = ({ children }) => {
   );
 };
 PlayerPictureList.Item = Item;
+PlayerPictureList.PlaceHolder = PlaceHolder;
