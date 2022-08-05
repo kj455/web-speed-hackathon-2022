@@ -47,10 +47,9 @@ export const RaceCard = () => {
       <Section dark shrink>
         <LiveBadge>Live</LiveBadge>
         <Spacer mt={Space * 2} />
-        <img
+        <TrimmedImage
           height={225}
           src={data?.image ?? "/assets/images/loading.jpeg"}
-          style={{ objectFit: "cover" }}
           width={400}
         />
       </Section>
