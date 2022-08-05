@@ -136,14 +136,9 @@ export const Top = () => {
 
   const todayRaces =
     raceData != null
-      ? [...raceData.races]
-          .sort(
-            (/** @type {Model.Race} */ a, /** @type {Model.Race} */ b) =>
-              dayjs(a.startAt) - dayjs(b.startAt),
-          )
-          .filter((/** @type {Model.Race} */ race) =>
-            isSameDay(race.startAt, date),
-          )
+      ? [...raceData.races].filter((/** @type {Model.Race} */ race) =>
+          isSameDay(race.startAt, date),
+        )
       : [];
 
   const todayRacesToShow = useTodayRacesWithAnimation(todayRaces);
@@ -152,7 +147,19 @@ export const Top = () => {
 
   return (
     <Container>
-      <HeroImage url={heroImageUrl ?? ""} />
+      {heroImageUrl ? (
+        <HeroImage url={heroImageUrl ?? ""} />
+      ) : (
+        <div
+          style={{
+            aspectRatio: "4/2.9",
+            backgroundColor: "gray",
+            height: "auto",
+            objectFit: "cover",
+            width: "100%",
+          }}
+        />
+      )}
 
       <Spacer mt={Space * 2} />
       {userData && (

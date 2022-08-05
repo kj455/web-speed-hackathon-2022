@@ -76,12 +76,20 @@ export const Odds = () => {
       <Section dark shrink>
         <LiveBadge>Live</LiveBadge>
         <Spacer mt={Space * 2} />
-        <TrimmedImage
-          alt="レースサムネイル"
-          height={225}
-          src={data?.image ?? "/assets/images/loading.jpeg"}
-          width={400}
-        />
+        {data ? (
+          <TrimmedImage
+            alt="レースサムネイル"
+            height={225}
+            src={data?.image ?? "/assets/images/loading.jpeg"}
+            width={400}
+          />
+        ) : (
+          <div
+            width={400}
+            height={225}
+            style={{ width: "400px", height: "225px" }}
+          />
+        )}
       </Section>
 
       <Spacer mt={Space * 2} />

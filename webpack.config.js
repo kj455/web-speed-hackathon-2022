@@ -50,6 +50,9 @@ module.exports = [
       ],
     },
     name: "client",
+    optimization: {
+      minimize: true,
+    },
     output: {
       path: DIST_PUBLIC,
     },
