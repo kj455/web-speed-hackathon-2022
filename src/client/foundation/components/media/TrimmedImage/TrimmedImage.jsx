@@ -34,10 +34,11 @@ const calcImageSize = (cv, img) => {
  * @property {string} src
  * @property {number} width
  * @property {number} height
+ * @property {string} alt
  */
 
 /** @type {React.VFC<Props>} */
-export const TrimmedImage = ({ height, src, width }) => {
+export const TrimmedImage = ({ height, src, width, alt }) => {
   const [dataUrl, setDataUrl] = useState(null);
   /** @type {React.MutableRefObject<HTMLImageElement>} */
   const ref = useRef();
@@ -73,5 +74,5 @@ export const TrimmedImage = ({ height, src, width }) => {
     };
   }, [height, src, width]);
 
-  return <img ref={ref} src={dataUrl} />;
+  return <img ref={ref} alt={alt} src={dataUrl} />;
 };

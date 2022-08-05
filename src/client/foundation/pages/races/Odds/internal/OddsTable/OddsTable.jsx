@@ -199,3 +199,50 @@ export const OddsTable = ({ entries, isRaceClosed, odds, onClickOdds }) => {
     </div>
   );
 };
+
+export const OddsTablePlaceHolder = () => (
+  <div>
+    <Stack horizontal>
+      <RankLabel>1位軸</RankLabel>
+      <p>...</p>
+    </Stack>
+
+    <Spacer mt={Space * 2} />
+    <ScrollWrapper>
+      <div>
+        <Table>
+          <thead>
+            <tr>
+              <th width="64px">2位</th>
+              <th width="32px"></th>
+
+              {[...new Array(10)].map((_, i) => (
+                <th key={i} width="auto">
+                  {i + 2}
+                </th>
+              ))}
+            </tr>
+          </thead>
+
+          <tbody>
+            {[...new Array(10)].map((third, i) => (
+              <tr key={third} style={{ height: 54 }}>
+                {i === 0 && <th rowSpan={[...new Array(10)].length}>3位</th>}
+
+                <th>{third}</th>
+
+                {[...new Array(10)].map((second) => {
+                  return (
+                    <td key={second} width="auto">
+                      -
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </div>
+    </ScrollWrapper>
+  </div>
+);

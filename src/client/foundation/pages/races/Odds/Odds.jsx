@@ -15,7 +15,7 @@ import { formatTime } from "../../../utils/DateUtils";
 import { jsonFetcher } from "../../../utils/HttpUtils";
 
 import { OddsRankingList } from "./internal/OddsRankingList";
-import { OddsTable } from "./internal/OddsTable";
+import { OddsTable, OddsTablePlaceHolder } from "./internal/OddsTable";
 import { TicketVendingModal } from "./internal/TicketVendingModal";
 
 const LiveBadge = styled.span`
@@ -77,6 +77,7 @@ export const Odds = () => {
         <LiveBadge>Live</LiveBadge>
         <Spacer mt={Space * 2} />
         <TrimmedImage
+          alt="レースサムネイル"
           height={225}
           src={data?.image ?? "/assets/images/loading.jpeg"}
           width={400}
@@ -121,13 +122,15 @@ export const Odds = () => {
         <Heading as="h2">オッズ表</Heading>
 
         <Spacer mt={Space * 2} />
-        {data && (
+        {data ? (
           <OddsTable
             entries={data.entries}
             isRaceClosed={isRaceClosed}
             odds={data.trifectaOdds}
             onClickOdds={handleClickOdds}
           />
+        ) : (
+          <OddsTablePlaceHolder />
         )}
 
         <Spacer mt={Space * 4} />

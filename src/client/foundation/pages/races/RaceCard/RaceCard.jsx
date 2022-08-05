@@ -48,6 +48,7 @@ export const RaceCard = () => {
         <LiveBadge>Live</LiveBadge>
         <Spacer mt={Space * 2} />
         <TrimmedImage
+          alt="レースサムネイル"
           height={225}
           src={data?.image ?? "/assets/images/loading.jpeg"}
           width={400}
